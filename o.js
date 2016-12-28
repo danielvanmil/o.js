@@ -443,19 +443,22 @@
         // +++
         // This function actually queries the oData service with a GET request
         // TODO: maybe add some pseudonyms...
-        // +++
+        // +++		
         base.get = function (callback, errorCallback) {
             // init the q -> if node require a node promise -> if ES6, try ES6 promise
             var promise = initPromise();
-            currentPromise = promise.defer();
 
             //start the request
-            startRequest(callback, errorCallback, false);
-            if (typeof promise !== 'undefined')
+            if (promise && typeof callback === 'undefined') {
+                currentPromise = promise.defer();
+                startRequest(callback, errorCallback, false);
                 return (currentPromise.promise);
-            else
+            }
+            else {
+                startRequest(callback, errorCallback, false);
                 return (base);
-        }
+            }
+        }		
 
         // +++
         // adds a dataset to the current selected resource
