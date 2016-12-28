@@ -700,7 +700,11 @@
                     queryStr += '(' + (internalParam[res.path[i].get] || res.path[i].get) + ')';
                 }
 
-                queryStr += '/';
+                //queryStr += '/';
+				// danielm
+				if (i < res.path.length - 1) {
+                  queryStr += '/';
+                }
             }
 
             return (queryStr + res.appending + getQuery());
